@@ -23,7 +23,7 @@ extern Pixel rgb;
 extern Network g_network;  // 网络连接
 extern FlashFS g_flashCfg; // flash中的文件系统（替代原先的Preferences）
 extern Display screen;     // 屏幕对象
-extern Ambient ambLight;   // 光纤传感器对象
+extern Ambient ambLight;   // 光线传感器对象
 
 boolean doDelayMillisTime(unsigned long interval,
                           unsigned long *previousMillis,

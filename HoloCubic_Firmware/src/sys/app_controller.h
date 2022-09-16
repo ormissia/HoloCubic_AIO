@@ -36,10 +36,10 @@ struct EVENT_OBJ
 class AppController
 {
 public:
-    AppController(const char *name = CTRL_NAME);
+    explicit AppController(const char *name = CTRL_NAME);
     ~AppController();
-    void init(void);
-    void Display(void); // 显示接口
+    void init();
+    void Display(); // 显示接口
     int app_auto_start();
     // 将APP注册到app_controller中
     int app_install(APP_OBJ *app,
@@ -47,9 +47,9 @@ public:
     // 将APP从app_controller中卸载（删除）
     int app_uninstall(const APP_OBJ *app);
     // 将APP的后台任务从任务队列中移除(自能通过APP退出的时候，移除自身的后台任务)
-    int remove_backgroud_task(void);
+    int remove_backgroud_task();
     int main_process(ImuAction *act_info);
-    void app_exit(void); // 提供给app退出的系统调用
+    void app_exit(); // 提供给app退出的系统调用
     // 消息发送
     int send_to(const char *from, const char *to,
                 APP_MESSAGE_TYPE type, void *message,
@@ -57,7 +57,7 @@ public:
     void deal_config(APP_MESSAGE_TYPE type,
                      const char *key, char *value);
     // 事件处理
-    int req_event_deal(void);
+    int req_event_deal();
     bool wifi_event(APP_MESSAGE_TYPE type); // wifi事件的处理
     void read_config(SysUtilConfig *cfg);
     void write_config(SysUtilConfig *cfg);

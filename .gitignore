@@ -1,2 +1,7 @@
 Docs/LvglFontTool
-.idea/
+.idea
+
+# Firmware
+.pio
+cmake-build-*/
+CMakeListsPrivate.txt

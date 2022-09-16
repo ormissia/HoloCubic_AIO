@@ -9,12 +9,12 @@ static fs::FS *tf_vfs;
 
 void release_file_info(File_Info *info)
 {
-    File_Info *cur_node = NULL; // 记录当前节点
-    if (NULL == info)
+    File_Info *cur_node = nullptr; // 记录当前节点
+    if (nullptr == info)
     {
         return;
     }
-    for (cur_node = info->next_node; NULL != cur_node;)
+    for (cur_node = info->next_node; nullptr != cur_node;)
     {
         // 判断是不是循环一圈回来了
         if (info->next_node == cur_node)
@@ -420,7 +420,7 @@ boolean SdCard::deleteFile(const char *path)
 
 boolean SdCard::deleteFile(const String &path)
 {
-    Serial.printf("Deleting file: %s\n", path);
+    Serial.printf("Deleting file: %s\n", path.c_str());
     if (tf_vfs->remove(path))
     {
         Serial.println("File deleted");

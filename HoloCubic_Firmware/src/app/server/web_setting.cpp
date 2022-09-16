@@ -14,8 +14,7 @@ String webpage = "";
 String webpage_header = "";
 String webpage_footer = "";
 
-void Send_HTML(const String &content)
-{
+void Send_HTML(const String &content) {
     server.sendHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     server.sendHeader("Pragma", "no-cache");
     server.sendHeader("Expires", "-1");
@@ -31,8 +30,7 @@ void Send_HTML(const String &content)
     server.client().stop(); // Stop is needed because no content length was sent
 }
 
-String file_size(int bytes)
-{
+String file_size(int bytes) {
     String fsize = "";
     if (bytes < 1024)
         fsize = String(bytes) + " B";
@@ -119,38 +117,52 @@ String file_size(int bytes)
                             "<label class=\"input\"><span>日期1</span><input type=\"text\"name=\"target_date1\"value=\"%s\"></label>" \
                             "</label><input class=\"btn\" type=\"submit\" name=\"submit\" value=\"保存\"></form>"
 
-void init_page_header()
-{
+void init_page_header() {
     webpage_header = F("<!DOCTYPE html><html>");
     webpage_header += F("<head>");
     webpage_header += F("<title>HoloCubic WebServer</title>"); // NOTE: 1em = 16px
-    webpage_header += F("<meta http-equiv='Content-Type' name='viewport' content='user-scalable=yes,initial-scale=1.0,width=device-width; text/html; charset=utf-8' />");
+    webpage_header += F(
+            "<meta http-equiv='Content-Type' name='viewport' content='user-scalable=yes,initial-scale=1.0,width=device-width; text/html; charset=utf-8' />");
     webpage_header += F("<style>");
     webpage_header += F(SETING_CSS);
-    webpage_header += F("body{max-width:65%;margin:0 auto;font-family:arial;font-size:105%;text-align:center;color:blue;background-color:#dbdadb;}");
-    webpage_header += F("ul{list-style-type:none;margin:0.1em;padding:0;border-radius:0.375em;overflow:hidden;background-color:#878588;font-size:1em;}");
-    webpage_header += F("li{float:left;border-radius:0.375em;border-right:0.06em solid #bbb;}last-child {border-right:none;font-size:85%}");
-    webpage_header += F("li a{display: block;border-radius:0.375em;padding:0.44em 0.44em;text-decoration:none;font-size:85%}");
+    webpage_header += F(
+            "body{max-width:65%;margin:0 auto;font-family:arial;font-size:105%;text-align:center;color:blue;background-color:#dbdadb;}");
+    webpage_header += F(
+            "ul{list-style-type:none;margin:0.1em;padding:0;border-radius:0.375em;overflow:hidden;background-color:#878588;font-size:1em;}");
+    webpage_header += F(
+            "li{float:left;border-radius:0.375em;border-right:0.06em solid #bbb;}last-child {border-right:none;font-size:85%}");
+    webpage_header += F(
+            "li a{display: block;border-radius:0.375em;padding:0.44em 0.44em;text-decoration:none;font-size:85%}");
     webpage_header += F("li a:hover{background-color:#EAE3EA;border-radius:0.375em;font-size:85%}");
     webpage_header += F("section {font-size:0.88em;}");
     webpage_header += F("h1{color:white;border-radius:0.5em;font-size:1em;padding:0.2em 0.2em;background:#4c4c4d;}");
     webpage_header += F("h2{color:orange;font-size:1.0em;}");
     webpage_header += F("h3{font-size:0.8em;}");
     webpage_header += F("table{font-family:arial,sans-serif;font-size:0.9em;border-collapse:collapse;width:85%;}");
-    webpage_header += F("th,td {border:0.06em solid #dddddd;text-align:left;padding:0.3em;border-bottom:0.06em solid #dddddd;}");
+    webpage_header += F(
+            "th,td {border:0.06em solid #dddddd;text-align:left;padding:0.3em;border-bottom:0.06em solid #dddddd;}");
     webpage_header += F("tr:nth-child(odd) {background-color:#eeeeee;}");
-    webpage_header += F(".rcorners_n {border-radius:0.5em;background:#558ED5;padding:0.3em 0.3em;width:20%;color:white;font-size:75%;}");
-    webpage_header += F(".rcorners_m {border-radius:0.5em;background:#558ED5;padding:0.3em 0.3em;width:50%;color:white;font-size:75%;}");
-    webpage_header += F(".rcorners_w {border-radius:0.5em;background:#558ED5;padding:0.3em 0.3em;width:70%;color:white;font-size:75%;}");
+    webpage_header += F(
+            ".rcorners_n {border-radius:0.5em;background:#558ED5;padding:0.3em 0.3em;width:20%;color:white;font-size:75%;}");
+    webpage_header += F(
+            ".rcorners_m {border-radius:0.5em;background:#558ED5;padding:0.3em 0.3em;width:50%;color:white;font-size:75%;}");
+    webpage_header += F(
+            ".rcorners_w {border-radius:0.5em;background:#558ED5;padding:0.3em 0.3em;width:70%;color:white;font-size:75%;}");
     webpage_header += F(".column{float:left;width:50%;height:45%;}");
     webpage_header += F(".row:after{content:'';display:table;clear:both;}");
     webpage_header += F("*{box-sizing:border-box;}");
-    webpage_header += F("footer{background-color:#b1b1b1; text-align:center;padding:0.3em 0.3em;border-radius:0.375em;font-size:60%;}");
-    webpage_header += F("button{border-radius:0.5em;background:#558ED5;padding:0.3em 0.3em;width:20%;color:white;font-size:130%;}");
-    webpage_header += F(".buttons {border-radius:0.5em;background:#558ED5;padding:0.3em 0.3em;width:15%;color:white;font-size:80%;}");
-    webpage_header += F(".buttonsm{border-radius:0.5em;background:#558ED5;padding:0.3em 0.3em;width:9%; color:white;font-size:70%;}");
-    webpage_header += F(".buttonm {border-radius:0.5em;background:#558ED5;padding:0.3em 0.3em;width:15%;color:white;font-size:70%;}");
-    webpage_header += F(".buttonw {border-radius:0.5em;background:#558ED5;padding:0.3em 0.3em;width:40%;color:white;font-size:70%;}");
+    webpage_header += F(
+            "footer{background-color:#b1b1b1; text-align:center;padding:0.3em 0.3em;border-radius:0.375em;font-size:60%;}");
+    webpage_header += F(
+            "button{border-radius:0.5em;background:#558ED5;padding:0.3em 0.3em;width:20%;color:white;font-size:130%;}");
+    webpage_header += F(
+            ".buttons {border-radius:0.5em;background:#558ED5;padding:0.3em 0.3em;width:15%;color:white;font-size:80%;}");
+    webpage_header += F(
+            ".buttonsm{border-radius:0.5em;background:#558ED5;padding:0.3em 0.3em;width:9%; color:white;font-size:70%;}");
+    webpage_header += F(
+            ".buttonm {border-radius:0.5em;background:#558ED5;padding:0.3em 0.3em;width:15%;color:white;font-size:70%;}");
+    webpage_header += F(
+            ".buttonw {border-radius:0.5em;background:#558ED5;padding:0.3em 0.3em;width:40%;color:white;font-size:70%;}");
     webpage_header += F("a{font-size:75%;}");
     webpage_header += F("p{font-size:75%;}");
 
@@ -176,23 +188,19 @@ void init_page_header()
     webpage_header += F("</ul>");
 }
 
-void init_page_footer()
-{
+void init_page_footer() {
     webpage_footer = F("<footer>&copy;ClimbSnail 2021</footer>");
     webpage_footer += F("</body></html>");
 }
 
 // All supporting functions from here...
-void HomePage()
-{
+void HomePage() {
     // 指定 target='_blank' 设置新建页面
-    webpage = F("<a href='https://github.com/ClimbSnail/HoloCubic_AIO' target='_blank'><button>Github</button></a>");
-    webpage += F("<a href='https://space.bilibili.com/344470052?spm_id_from=333.788.b_765f7570696e666f.1' target='_blank'><button>BiliBili教程</button></a>");
+    webpage = F("<a href='https://ormissia.github.io' target='_blank'><button>小吵闹</button></a>");
     Send_HTML(webpage);
 }
 
-void sys_setting()
-{
+void sys_setting() {
     char buf[2048];
     char ssid_0[32];
     char password_0[32];
@@ -209,39 +217,36 @@ void sys_setting()
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl", APP_MESSAGE_READ_CFG,
                             NULL, NULL);
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl", APP_MESSAGE_GET_PARAM,
-                            (void *)"ssid_0", ssid_0);
+                            (void *) "ssid_0", ssid_0);
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl", APP_MESSAGE_GET_PARAM,
-                            (void *)"password_0", password_0);
+                            (void *) "password_0", password_0);
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl", APP_MESSAGE_GET_PARAM,
-                            (void *)"power_mode", power_mode);
+                            (void *) "power_mode", power_mode);
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl", APP_MESSAGE_GET_PARAM,
-                            (void *)"backLight", backLight);
+                            (void *) "backLight", backLight);
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl", APP_MESSAGE_GET_PARAM,
-                            (void *)"rotation", rotation);
+                            (void *) "rotation", rotation);
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl", APP_MESSAGE_GET_PARAM,
-                            (void *)"mpu_order", mpu_order);
+                            (void *) "mpu_order", mpu_order);
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl", APP_MESSAGE_GET_PARAM,
-                            (void *)"min_brightness", min_brightness);
+                            (void *) "min_brightness", min_brightness);
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl", APP_MESSAGE_GET_PARAM,
-                            (void *)"max_brightness", max_brightness);
+                            (void *) "max_brightness", max_brightness);
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl", APP_MESSAGE_GET_PARAM,
-                            (void *)"time", time);
+                            (void *) "time", time);
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl", APP_MESSAGE_GET_PARAM,
-                            (void *)"auto_calibration_mpu", auto_calibration_mpu);
+                            (void *) "auto_calibration_mpu", auto_calibration_mpu);
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl", APP_MESSAGE_GET_PARAM,
-                            (void *)"auto_start_app", auto_start_app);
+                            (void *) "auto_start_app", auto_start_app);
     SysUtilConfig cfg = app_controller->sys_cfg;
     // 主要为了处理启停MPU自动校准的单选框
-    if (0 == cfg.auto_calibration_mpu)
-    {
+    if (0 == cfg.auto_calibration_mpu) {
         sprintf(buf, SYS_SETTING,
                 ssid_0, password_0,
                 power_mode, backLight, rotation,
                 mpu_order, "checked=\"checked\"", "",
                 auto_start_app);
-    }
-    else
-    {
+    } else {
         sprintf(buf, SYS_SETTING,
                 ssid_0, password_0,
                 power_mode, backLight, rotation,
@@ -252,8 +257,7 @@ void sys_setting()
     Send_HTML(webpage);
 }
 
-void rgb_setting()
-{
+void rgb_setting() {
     char buf[2048];
     char min_brightness[32];
     char max_brightness[32];
@@ -262,19 +266,18 @@ void rgb_setting()
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl", APP_MESSAGE_READ_CFG,
                             NULL, NULL);
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl", APP_MESSAGE_GET_PARAM,
-                            (void *)"min_brightness", min_brightness);
+                            (void *) "min_brightness", min_brightness);
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl", APP_MESSAGE_GET_PARAM,
-                            (void *)"max_brightness", max_brightness);
+                            (void *) "max_brightness", max_brightness);
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl", APP_MESSAGE_GET_PARAM,
-                            (void *)"time", time);
+                            (void *) "time", time);
     sprintf(buf, RGB_SETTING,
             min_brightness, max_brightness, time);
     webpage = buf;
     Send_HTML(webpage);
 }
 
-void weather_setting()
-{
+void weather_setting() {
     char buf[2048];
     char tianqi_appid[32];
     char tianqi_appsecret[32];
@@ -285,15 +288,15 @@ void weather_setting()
     app_controller->send_to(SERVER_APP_NAME, "Weather", APP_MESSAGE_READ_CFG,
                             NULL, NULL);
     app_controller->send_to(SERVER_APP_NAME, "Weather", APP_MESSAGE_GET_PARAM,
-                            (void *)"tianqi_appid", tianqi_appid);
+                            (void *) "tianqi_appid", tianqi_appid);
     app_controller->send_to(SERVER_APP_NAME, "Weather", APP_MESSAGE_GET_PARAM,
-                            (void *)"tianqi_appsecret", tianqi_appsecret);
+                            (void *) "tianqi_appsecret", tianqi_appsecret);
     app_controller->send_to(SERVER_APP_NAME, "Weather", APP_MESSAGE_GET_PARAM,
-                            (void *)"tianqi_addr", tianqi_addr);
+                            (void *) "tianqi_addr", tianqi_addr);
     app_controller->send_to(SERVER_APP_NAME, "Weather", APP_MESSAGE_GET_PARAM,
-                            (void *)"weatherUpdataInterval", weatherUpdataInterval);
+                            (void *) "weatherUpdataInterval", weatherUpdataInterval);
     app_controller->send_to(SERVER_APP_NAME, "Weather", APP_MESSAGE_GET_PARAM,
-                            (void *)"timeUpdataInterval", timeUpdataInterval);
+                            (void *) "timeUpdataInterval", timeUpdataInterval);
     sprintf(buf, WEATHER_SETTING, tianqi_appid,
             tianqi_appsecret, tianqi_addr,
             weatherUpdataInterval,
@@ -302,8 +305,7 @@ void weather_setting()
     Send_HTML(webpage);
 }
 
-void weather_old_setting()
-{
+void weather_old_setting() {
     char buf[2048];
     char cityname[32];
     char language[32];
@@ -314,15 +316,15 @@ void weather_old_setting()
     app_controller->send_to(SERVER_APP_NAME, "Weather Old", APP_MESSAGE_READ_CFG,
                             NULL, NULL);
     app_controller->send_to(SERVER_APP_NAME, "Weather Old", APP_MESSAGE_GET_PARAM,
-                            (void *)"cityname", cityname);
+                            (void *) "cityname", cityname);
     app_controller->send_to(SERVER_APP_NAME, "Weather Old", APP_MESSAGE_GET_PARAM,
-                            (void *)"language", language);
+                            (void *) "language", language);
     app_controller->send_to(SERVER_APP_NAME, "Weather Old", APP_MESSAGE_GET_PARAM,
-                            (void *)"weather_key", weather_key);
+                            (void *) "weather_key", weather_key);
     app_controller->send_to(SERVER_APP_NAME, "Weather Old", APP_MESSAGE_GET_PARAM,
-                            (void *)"weatherUpdataInterval", weatherUpdataInterval);
+                            (void *) "weatherUpdataInterval", weatherUpdataInterval);
     app_controller->send_to(SERVER_APP_NAME, "Weather Old", APP_MESSAGE_GET_PARAM,
-                            (void *)"timeUpdataInterval", timeUpdataInterval);
+                            (void *) "timeUpdataInterval", timeUpdataInterval);
     sprintf(buf, WEATHER_OLD_SETTING,
             cityname,
             language,
@@ -333,8 +335,7 @@ void weather_old_setting()
     Send_HTML(webpage);
 }
 
-void bili_setting()
-{
+void bili_setting() {
     char buf[2048];
     char bili_uid[32];
     char updataInterval[32];
@@ -342,30 +343,28 @@ void bili_setting()
     app_controller->send_to(SERVER_APP_NAME, "Bili", APP_MESSAGE_READ_CFG,
                             NULL, NULL);
     app_controller->send_to(SERVER_APP_NAME, "Bili", APP_MESSAGE_GET_PARAM,
-                            (void *)"bili_uid", bili_uid);
+                            (void *) "bili_uid", bili_uid);
     app_controller->send_to(SERVER_APP_NAME, "Bili", APP_MESSAGE_GET_PARAM,
-                            (void *)"updataInterval", updataInterval);
+                            (void *) "updataInterval", updataInterval);
     sprintf(buf, BILIBILI_SETTING, bili_uid, updataInterval);
     webpage = buf;
     Send_HTML(webpage);
 }
 
-void picture_setting()
-{
+void picture_setting() {
     char buf[2048];
     char switchInterval[32];
     // 读取数据
     app_controller->send_to(SERVER_APP_NAME, "Picture", APP_MESSAGE_READ_CFG,
                             NULL, NULL);
     app_controller->send_to(SERVER_APP_NAME, "Picture", APP_MESSAGE_GET_PARAM,
-                            (void *)"switchInterval", switchInterval);
+                            (void *) "switchInterval", switchInterval);
     sprintf(buf, PICTURE_SETTING, switchInterval);
     webpage = buf;
     Send_HTML(webpage);
 }
 
-void media_setting()
-{
+void media_setting() {
     char buf[2048];
     char switchFlag[32];
     char powerFlag[32];
@@ -373,30 +372,28 @@ void media_setting()
     app_controller->send_to(SERVER_APP_NAME, "Media", APP_MESSAGE_READ_CFG,
                             NULL, NULL);
     app_controller->send_to(SERVER_APP_NAME, "Media", APP_MESSAGE_GET_PARAM,
-                            (void *)"switchFlag", switchFlag);
+                            (void *) "switchFlag", switchFlag);
     app_controller->send_to(SERVER_APP_NAME, "Media", APP_MESSAGE_GET_PARAM,
-                            (void *)"powerFlag", powerFlag);
+                            (void *) "powerFlag", powerFlag);
     sprintf(buf, MEDIA_SETTING, switchFlag, powerFlag);
     webpage = buf;
     Send_HTML(webpage);
 }
 
-void screen_setting()
-{
+void screen_setting() {
     char buf[2048];
     char powerFlag[32];
     // 读取数据
     app_controller->send_to(SERVER_APP_NAME, "Screen share", APP_MESSAGE_READ_CFG,
                             NULL, NULL);
     app_controller->send_to(SERVER_APP_NAME, "Screen share", APP_MESSAGE_GET_PARAM,
-                            (void *)"powerFlag", powerFlag);
+                            (void *) "powerFlag", powerFlag);
     sprintf(buf, SCREEN_SETTING, powerFlag);
     webpage = buf;
     Send_HTML(webpage);
 }
 
-void heartbeat_setting()
-{
+void heartbeat_setting() {
     char buf[2048];
     char role[32];
     char client_id[32];
@@ -410,19 +407,19 @@ void heartbeat_setting()
                             NULL, NULL);
 
     app_controller->send_to(SERVER_APP_NAME, "Heartbeat", APP_MESSAGE_GET_PARAM,
-                            (void *)"role", role);
+                            (void *) "role", role);
     app_controller->send_to(SERVER_APP_NAME, "Heartbeat", APP_MESSAGE_GET_PARAM,
-                            (void *)"client_id", client_id);
+                            (void *) "client_id", client_id);
     app_controller->send_to(SERVER_APP_NAME, "Heartbeat", APP_MESSAGE_GET_PARAM,
-                            (void *)"subtopic", subtopic);
+                            (void *) "subtopic", subtopic);
     app_controller->send_to(SERVER_APP_NAME, "Heartbeat", APP_MESSAGE_GET_PARAM,
-                            (void *)"mqtt_server", mqtt_server);
+                            (void *) "mqtt_server", mqtt_server);
     app_controller->send_to(SERVER_APP_NAME, "Heartbeat", APP_MESSAGE_GET_PARAM,
-                            (void *)"port", port);
+                            (void *) "port", port);
     app_controller->send_to(SERVER_APP_NAME, "Heartbeat", APP_MESSAGE_GET_PARAM,
-                            (void *)"server_user", server_user);
+                            (void *) "server_user", server_user);
     app_controller->send_to(SERVER_APP_NAME, "Heartbeat", APP_MESSAGE_GET_PARAM,
-                            (void *)"server_password", server_password);
+                            (void *) "server_password", server_password);
 
     sprintf(buf, HEARTBEAT_SETTING, role, client_id, subtopic, mqtt_server,
             port, server_user, server_password);
@@ -430,8 +427,7 @@ void heartbeat_setting()
     Send_HTML(webpage);
 }
 
-void anniversary_setting()
-{
+void anniversary_setting() {
     char buf[2048];
     char event_name0[32];
     char target_date0[32];
@@ -441,314 +437,291 @@ void anniversary_setting()
     app_controller->send_to(SERVER_APP_NAME, "Anniversary", APP_MESSAGE_READ_CFG,
                             NULL, NULL);
     app_controller->send_to(SERVER_APP_NAME, "Anniversary", APP_MESSAGE_GET_PARAM,
-                            (void *)"event_name0", event_name0);
+                            (void *) "event_name0", event_name0);
     app_controller->send_to(SERVER_APP_NAME, "Anniversary", APP_MESSAGE_GET_PARAM,
-                            (void *)"target_date0", target_date0);
+                            (void *) "target_date0", target_date0);
     app_controller->send_to(SERVER_APP_NAME, "Anniversary", APP_MESSAGE_GET_PARAM,
-                            (void *)"event_name1", event_name1);
+                            (void *) "event_name1", event_name1);
     app_controller->send_to(SERVER_APP_NAME, "Anniversary", APP_MESSAGE_GET_PARAM,
-                            (void *)"target_date1", target_date1);
+                            (void *) "target_date1", target_date1);
     sprintf(buf, ANNIVERSARY_SETTING, event_name0, target_date0, event_name1, target_date1);
     webpage = buf;
     Send_HTML(webpage);
 }
 
-void saveSysConf(void)
-{
+void saveSysConf(void) {
     Send_HTML(F("<h1>设置成功! 退出APP或者继续其他设置.</h1>"));
 
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"ssid_0",
-                            (void *)server.arg("ssid_0").c_str());
+                            (void *) "ssid_0",
+                            (void *) server.arg("ssid_0").c_str());
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"password_0",
-                            (void *)server.arg("password_0").c_str());
+                            (void *) "password_0",
+                            (void *) server.arg("password_0").c_str());
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"power_mode",
-                            (void *)server.arg("power_mode").c_str());
+                            (void *) "power_mode",
+                            (void *) server.arg("power_mode").c_str());
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"backLight",
-                            (void *)server.arg("backLight").c_str());
+                            (void *) "backLight",
+                            (void *) server.arg("backLight").c_str());
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"rotation",
-                            (void *)server.arg("rotation").c_str());
+                            (void *) "rotation",
+                            (void *) server.arg("rotation").c_str());
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"mpu_order",
-                            (void *)server.arg("mpu_order").c_str());
+                            (void *) "mpu_order",
+                            (void *) server.arg("mpu_order").c_str());
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"auto_calibration_mpu",
-                            (void *)server.arg("auto_calibration_mpu").c_str());
+                            (void *) "auto_calibration_mpu",
+                            (void *) server.arg("auto_calibration_mpu").c_str());
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"auto_start_app",
-                            (void *)server.arg("auto_start_app").c_str());
+                            (void *) "auto_start_app",
+                            (void *) server.arg("auto_start_app").c_str());
     // 持久化数据
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl", APP_MESSAGE_WRITE_CFG,
                             NULL, NULL);
 }
 
-void saveRgbConf(void)
-{
+void saveRgbConf(void) {
     Send_HTML(F("<h1>设置成功! 退出APP或者继续其他设置.</h1>"));
 
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"min_brightness",
-                            (void *)server.arg("min_brightness").c_str());
+                            (void *) "min_brightness",
+                            (void *) server.arg("min_brightness").c_str());
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"max_brightness",
-                            (void *)server.arg("max_brightness").c_str());
+                            (void *) "max_brightness",
+                            (void *) server.arg("max_brightness").c_str());
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"time",
-                            (void *)server.arg("time").c_str());
+                            (void *) "time",
+                            (void *) server.arg("time").c_str());
     // 持久化数据
     app_controller->send_to(SERVER_APP_NAME, "AppCtrl", APP_MESSAGE_WRITE_CFG,
                             NULL, NULL);
 }
 
-void saveWeatherConf(void)
-{
+void saveWeatherConf(void) {
     Send_HTML(F("<h1>设置成功! 退出APP或者继续其他设置.</h1>"));
 
     app_controller->send_to(SERVER_APP_NAME, "Weather",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"tianqi_appid",
-                            (void *)server.arg("tianqi_appid").c_str());
+                            (void *) "tianqi_appid",
+                            (void *) server.arg("tianqi_appid").c_str());
     app_controller->send_to(SERVER_APP_NAME, "Weather",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"tianqi_appsecret",
-                            (void *)server.arg("tianqi_appsecret").c_str());
+                            (void *) "tianqi_appsecret",
+                            (void *) server.arg("tianqi_appsecret").c_str());
     app_controller->send_to(SERVER_APP_NAME, "Weather",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"tianqi_addr",
-                            (void *)server.arg("tianqi_addr").c_str());
+                            (void *) "tianqi_addr",
+                            (void *) server.arg("tianqi_addr").c_str());
     app_controller->send_to(SERVER_APP_NAME, "Weather",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"weatherUpdataInterval",
-                            (void *)server.arg("weatherUpdataInterval").c_str());
+                            (void *) "weatherUpdataInterval",
+                            (void *) server.arg("weatherUpdataInterval").c_str());
     app_controller->send_to(SERVER_APP_NAME, "Weather",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"timeUpdataInterval",
-                            (void *)server.arg("timeUpdataInterval").c_str());
+                            (void *) "timeUpdataInterval",
+                            (void *) server.arg("timeUpdataInterval").c_str());
     // 持久化数据
     app_controller->send_to(SERVER_APP_NAME, "Weather", APP_MESSAGE_WRITE_CFG,
                             NULL, NULL);
 }
 
-void saveWeatherOldConf(void)
-{
+void saveWeatherOldConf(void) {
     Send_HTML(F("<h1>设置成功! 退出APP或者继续其他设置.</h1>"));
 
     app_controller->send_to(SERVER_APP_NAME, "Weather Old",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"cityname",
-                            (void *)server.arg("cityname").c_str());
+                            (void *) "cityname",
+                            (void *) server.arg("cityname").c_str());
     app_controller->send_to(SERVER_APP_NAME, "Weather Old",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"language",
-                            (void *)server.arg("language").c_str());
+                            (void *) "language",
+                            (void *) server.arg("language").c_str());
     app_controller->send_to(SERVER_APP_NAME, "Weather Old",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"weather_key",
-                            (void *)server.arg("weather_key").c_str());
+                            (void *) "weather_key",
+                            (void *) server.arg("weather_key").c_str());
     app_controller->send_to(SERVER_APP_NAME, "Weather Old",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"weatherUpdataInterval",
-                            (void *)server.arg("weatherUpdataInterval").c_str());
+                            (void *) "weatherUpdataInterval",
+                            (void *) server.arg("weatherUpdataInterval").c_str());
     app_controller->send_to(SERVER_APP_NAME, "Weather Old",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"timeUpdataInterval",
-                            (void *)server.arg("timeUpdataInterval").c_str());
+                            (void *) "timeUpdataInterval",
+                            (void *) server.arg("timeUpdataInterval").c_str());
     // 持久化数据
     app_controller->send_to(SERVER_APP_NAME, "Weather Old", APP_MESSAGE_WRITE_CFG,
                             NULL, NULL);
 }
 
-void saveBiliConf(void)
-{
+void saveBiliConf(void) {
     Send_HTML(F("<h1>设置成功! 退出APP或者继续其他设置.</h1>"));
     app_controller->send_to(SERVER_APP_NAME, "Bili",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"bili_uid",
-                            (void *)server.arg("bili_uid").c_str());
+                            (void *) "bili_uid",
+                            (void *) server.arg("bili_uid").c_str());
     app_controller->send_to(SERVER_APP_NAME, "Bili",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"updataInterval",
-                            (void *)server.arg("updataInterval").c_str());
+                            (void *) "updataInterval",
+                            (void *) server.arg("updataInterval").c_str());
     // 持久化数据
     app_controller->send_to(SERVER_APP_NAME, "Bili", APP_MESSAGE_WRITE_CFG,
                             NULL, NULL);
 }
 
-void savePictureConf(void)
-{
+void savePictureConf(void) {
     Send_HTML(F("<h1>设置成功! 退出APP或者继续其他设置.</h1>"));
     app_controller->send_to(SERVER_APP_NAME, "Picture",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"switchInterval",
-                            (void *)server.arg("switchInterval").c_str());
+                            (void *) "switchInterval",
+                            (void *) server.arg("switchInterval").c_str());
     // 持久化数据
     app_controller->send_to(SERVER_APP_NAME, "Picture", APP_MESSAGE_WRITE_CFG,
                             NULL, NULL);
 }
 
-void saveMediaConf(void)
-{
+void saveMediaConf(void) {
     Send_HTML(F("<h1>设置成功! 退出APP或者继续其他设置.</h1>"));
     app_controller->send_to(SERVER_APP_NAME, "Media",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"switchFlag",
-                            (void *)server.arg("switchFlag").c_str());
+                            (void *) "switchFlag",
+                            (void *) server.arg("switchFlag").c_str());
     app_controller->send_to(SERVER_APP_NAME, "Media",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"powerFlag",
-                            (void *)server.arg("powerFlag").c_str());
+                            (void *) "powerFlag",
+                            (void *) server.arg("powerFlag").c_str());
     // 持久化数据
     app_controller->send_to(SERVER_APP_NAME, "Media", APP_MESSAGE_WRITE_CFG,
                             NULL, NULL);
 }
 
-void saveScreenConf(void)
-{
+void saveScreenConf(void) {
     Send_HTML(F("<h1>设置成功! 退出APP或者继续其他设置.</h1>"));
     app_controller->send_to(SERVER_APP_NAME, "Screen share",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"powerFlag",
-                            (void *)server.arg("powerFlag").c_str());
+                            (void *) "powerFlag",
+                            (void *) server.arg("powerFlag").c_str());
     // 持久化数据
     app_controller->send_to(SERVER_APP_NAME, "Screen share", APP_MESSAGE_WRITE_CFG,
                             NULL, NULL);
 }
 
-void saveHeartbeatConf(void)
-{
+void saveHeartbeatConf(void) {
     Send_HTML(F("<h1>设置成功! 退出APP或者继续其他设置.</h1>"));
     app_controller->send_to(SERVER_APP_NAME, "Heartbeat",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"role",
-                            (void *)server.arg("role").c_str());
+                            (void *) "role",
+                            (void *) server.arg("role").c_str());
     app_controller->send_to(SERVER_APP_NAME, "Heartbeat",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"client_id",
-                            (void *)server.arg("mqtt_client_id").c_str());
+                            (void *) "client_id",
+                            (void *) server.arg("mqtt_client_id").c_str());
     app_controller->send_to(SERVER_APP_NAME, "Heartbeat",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"subtopic",
-                            (void *)server.arg("mqtt_subtopic").c_str());
+                            (void *) "subtopic",
+                            (void *) server.arg("mqtt_subtopic").c_str());
     app_controller->send_to(SERVER_APP_NAME, "Heartbeat",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"mqtt_server",
-                            (void *)server.arg("mqtt_server").c_str());
+                            (void *) "mqtt_server",
+                            (void *) server.arg("mqtt_server").c_str());
     app_controller->send_to(SERVER_APP_NAME, "Heartbeat",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"port",
-                            (void *)server.arg("mqtt_port").c_str());
+                            (void *) "port",
+                            (void *) server.arg("mqtt_port").c_str());
     app_controller->send_to(SERVER_APP_NAME, "Heartbeat",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"server_user",
-                            (void *)server.arg("mqtt_user").c_str());
+                            (void *) "server_user",
+                            (void *) server.arg("mqtt_user").c_str());
     app_controller->send_to(SERVER_APP_NAME, "Heartbeat",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"server_password",
-                            (void *)server.arg("mqtt_password").c_str());
+                            (void *) "server_password",
+                            (void *) server.arg("mqtt_password").c_str());
     // 持久化数据
     app_controller->send_to(SERVER_APP_NAME, "Heartbeat", APP_MESSAGE_WRITE_CFG,
                             NULL, NULL);
 }
 
-void saveAnniversaryConf(void)
-{
+void saveAnniversaryConf(void) {
     Send_HTML(F("<h1>设置成功! 退出APP或者继续其他设置.</h1>"));
     app_controller->send_to(SERVER_APP_NAME, "Anniversary",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"event_name0",
-                            (void *)server.arg("event_name0").c_str());
+                            (void *) "event_name0",
+                            (void *) server.arg("event_name0").c_str());
     app_controller->send_to(SERVER_APP_NAME, "Anniversary",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"target_date0",
-                            (void *)server.arg("target_date0").c_str());
+                            (void *) "target_date0",
+                            (void *) server.arg("target_date0").c_str());
     app_controller->send_to(SERVER_APP_NAME, "Anniversary",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"event_name1",
-                            (void *)server.arg("event_name1").c_str());
+                            (void *) "event_name1",
+                            (void *) server.arg("event_name1").c_str());
     app_controller->send_to(SERVER_APP_NAME, "Anniversary",
                             APP_MESSAGE_SET_PARAM,
-                            (void *)"target_date1",
-                            (void *)server.arg("target_date1").c_str());
+                            (void *) "target_date1",
+                            (void *) server.arg("target_date1").c_str());
     // 持久化数据
     app_controller->send_to(SERVER_APP_NAME, "Anniversary", APP_MESSAGE_WRITE_CFG,
                             NULL, NULL);
 }
 
-void File_Delete()
-{
+void File_Delete() {
     Send_HTML(
-        F("<h3>Enter filename to delete</h3>"
-          "<form action='/delete_result' method='post'>"
-          "<input type='text' name='delete_filepath' placeHolder='绝对路径 /image/...'><br>"
-          "</label><input class=\"btn\" type=\"submit\" name=\"Submie\" value=\"确认删除\"></form>"
-          "<a href='/'>[Back]</a>"));
+            F("<h3>Enter filename to delete</h3>"
+              "<form action='/delete_result' method='post'>"
+              "<input type='text' name='delete_filepath' placeHolder='绝对路径 /image/...'><br>"
+              "</label><input class=\"btn\" type=\"submit\" name=\"Submie\" value=\"确认删除\"></form>"
+              "<a href='/'>[Back]</a>"));
 }
 
-void delete_result(void)
-{
+void delete_result(void) {
     String del_file = server.arg("delete_filepath");
     boolean ret = tf.deleteFile(del_file);
-    if (ret)
-    {
+    if (ret) {
         webpage = "<h3>Delete succ!</h3><a href='/delete'>[Back]</a>";
         tf.listDir("/image", 250);
-    }
-    else
-    {
+    } else {
         webpage = "<h3>Delete fail! Please check up file path.</h3><a href='/delete'>[Back]</a>";
     }
     tf.listDir("/image", 250);
     Send_HTML(webpage);
 }
 
-void File_Download()
-{ // This gets called twice, the first pass selects the input, the second pass then processes the command line arguments
-    if (server.args() > 0)
-    { // Arguments were received
+void
+File_Download() { // This gets called twice, the first pass selects the input, the second pass then processes the command line arguments
+    if (server.args() > 0) { // Arguments were received
         if (server.hasArg("download"))
             sd_file_download(server.arg(0));
-    }
-    else
+    } else
         SelectInput("Enter filename to download", "download", "download");
 }
 
-void sd_file_download(const String &filename)
-{
-    if (sd_present)
-    {
+void sd_file_download(const String &filename) {
+    if (sd_present) {
         File download = tf.open("/" + filename);
-        if (download)
-        {
+        if (download) {
             server.sendHeader("Content-Type", "text/text");
             server.sendHeader("Content-Disposition", "attachment; filename=" + filename);
             server.sendHeader("Connection", "close");
             server.streamFile(download, "application/octet-stream");
             download.close();
-        }
-        else
+        } else
             ReportFileNotPresent(String("download"));
-    }
-    else
+    } else
         ReportSDNotPresent();
 }
 
-void File_Upload()
-{
+void File_Upload() {
     tf.listDir("/image", 250);
 
     webpage = webpage_header;
@@ -762,28 +735,25 @@ void File_Upload()
 }
 
 File UploadFile;
-void handleFileUpload()
-{                                                   // upload a new file to the Filing system
+
+void handleFileUpload() {                                                   // upload a new file to the Filing system
     HTTPUpload &uploadFileStream = server.upload(); // See https://github.com/esp8266/Arduino/tree/master/libraries/ESP8266WebServer/srcv
-                                                    // For further information on 'status' structure, there are other reasons such as a failed transfer that could be used
+    // For further information on 'status' structure, there are other reasons such as a failed transfer that could be used
     String filename = uploadFileStream.filename;
-    if (uploadFileStream.status == UPLOAD_FILE_START)
-    {
+    if (uploadFileStream.status == UPLOAD_FILE_START) {
         // String filename = uploadFileStream.filename;
         // if (!filename.startsWith("/image"))
         filename = "/image/" + filename;
         Serial.print(F("Upload File Name: "));
         Serial.println(filename);
-        tf.deleteFile(filename);                    // Remove a previous version, otherwise data is appended the file again
+        tf.deleteFile(
+                filename);                    // Remove a previous version, otherwise data is appended the file again
         UploadFile = tf.open(filename, FILE_WRITE); // Open the file for writing in SPIFFS (create it, if doesn't exist)
-    }
-    else if (uploadFileStream.status == UPLOAD_FILE_WRITE)
-    {
+    } else if (uploadFileStream.status == UPLOAD_FILE_WRITE) {
         if (UploadFile)
-            UploadFile.write(uploadFileStream.buf, uploadFileStream.currentSize); // Write the received bytes to the file
-    }
-    else if (uploadFileStream.status == UPLOAD_FILE_END)
-    {
+            UploadFile.write(uploadFileStream.buf,
+                             uploadFileStream.currentSize); // Write the received bytes to the file
+    } else if (uploadFileStream.status == UPLOAD_FILE_END) {
         if (UploadFile) // If the file was successfully created
         {
             UploadFile.close(); // Close the file again
@@ -798,20 +768,18 @@ void handleFileUpload()
             webpage += webpage_footer;
             server.send(200, "text/html", webpage);
             tf.listDir("/image", 250);
-        }
-        else
-        {
+        } else {
             ReportCouldNotCreateFile(String("upload"));
         }
     }
 }
 
-void SelectInput(String heading, String command, String arg_calling_name)
-{
+void SelectInput(String heading, String command, String arg_calling_name) {
     webpage = F("<h3>");
     webpage += heading + "</h3>";
     webpage += F("<FORM action='/");
-    webpage += command + "' method='post'>"; // Must match the calling argument e.g. '/chart' calls '/chart' after selection but with arguments!
+    webpage += command +
+               "' method='post'>"; // Must match the calling argument e.g. '/chart' calls '/chart' after selection but with arguments!
     webpage += F("<input type='text' name='");
     webpage += arg_calling_name;
     webpage += F("' value=''><br>");
@@ -822,23 +790,20 @@ void SelectInput(String heading, String command, String arg_calling_name)
     Send_HTML(webpage);
 }
 
-void ReportSDNotPresent()
-{
+void ReportSDNotPresent() {
     webpage = F("<h3>No SD Card present</h3>");
     webpage += F("<a href='/'>[Back]</a><br><br>");
     Send_HTML(webpage);
 }
 
-void ReportFileNotPresent(const String &target)
-{
+void ReportFileNotPresent(const String &target) {
     webpage = F("<h3>File does not exist</h3>");
     webpage += F("<a href='/");
     webpage += target + "'>[Back]</a><br><br>";
     Send_HTML(webpage);
 }
 
-void ReportCouldNotCreateFile(const String &target)
-{
+void ReportCouldNotCreateFile(const String &target) {
     webpage = F("<h3>Could Not Create Uploaded File (write-protected?)</h3>");
     webpage += F("<a href='/");
     webpage += target + "'>[Back]</a><br><br>";

@@ -2,40 +2,34 @@
 #include "common.h"
 #include "HardwareSerial.h"
 
-IPAddress local_ip(192, 168, 4, 2); // Set your server's fixed IP address here
-IPAddress gateway(192, 168, 4, 2);  // Set your network Gateway usually your Router base address
+IPAddress local_ip(192, 168, 12, 2); // Set your server's fixed IP address here
+IPAddress gateway(192, 168, 12, 2);  // Set your network Gateway usually your Router base address
 IPAddress subnet(255, 255, 255, 0); // Set your network sub-network mask here
-IPAddress dns(192, 168, 4, 1);      // Set your network DNS usually your Router base address
+IPAddress dns(192, 168, 12, 1);      // Set your network DNS usually your Router base address
 
-const char *AP_SSID = "HoloCubic_AIO"; //热点名称
-const char *HOST_NAME = "HoloCubic";   //主机名
+const char *AP_SSID = "claptrap"; //热点名称
+const char *HOST_NAME = "claptrap";   //主机名
 
 uint16_t ap_timeout = 0; // ap无连接的超时时间
 
 TimerHandle_t xTimer_ap;
 
-Network::Network()
-{
+Network::Network() {
     m_preDisWifiConnInfoMillis = 0;
     WiFi.enableSTA(false);
     WiFi.enableAP(false);
 }
 
-void Network::search_wifi(void)
-{
+void Network::search_wifi(void) {
     Serial.println("scan start");
     int wifi_num = WiFi.scanNetworks();
     Serial.println("scan done");
-    if (0 == wifi_num)
-    {
+    if (0 == wifi_num) {
         Serial.println("no networks found");
-    }
-    else
-    {
+    } else {
         Serial.print(wifi_num);
         Serial.println(" networks found");
-        for (int cnt = 0; cnt < wifi_num; ++cnt)
-        {
+        for (int cnt = 0; cnt < wifi_num; ++cnt) {
             Serial.print(cnt + 1);
             Serial.print(": ");
             Serial.print(WiFi.SSID(cnt));
@@ -47,10 +41,8 @@ void Network::search_wifi(void)
     }
 }
 
-boolean Network::start_conn_wifi(const char *ssid, const char *password)
-{
-    if (WiFi.status() == WL_CONNECTED)
-    {
+boolean Network::start_conn_wifi(const char *ssid, const char *password) {
+    if (WiFi.status() == WL_CONNECTED) {
         Serial.println(F("\nWiFi is OK.\n"));
         return false;
     }
@@ -91,20 +83,16 @@ boolean Network::start_conn_wifi(const char *ssid, const char *password)
     return true;
 }
 
-boolean Network::end_conn_wifi(void)
-{
-    if (WL_CONNECTED != WiFi.status())
-    {
-        if (doDelayMillisTime(10000, &m_preDisWifiConnInfoMillis, false))
-        {
+boolean Network::end_conn_wifi(void) {
+    if (WL_CONNECTED != WiFi.status()) {
+        if (doDelayMillisTime(10000, &m_preDisWifiConnInfoMillis, false)) {
             // 这个if为了减少频繁的打印
             Serial.println(F("\nWiFi connect error.\n"));
         }
         return CONN_ERROR;
     }
 
-    if (doDelayMillisTime(10000, &m_preDisWifiConnInfoMillis, false))
-    {
+    if (doDelayMillisTime(10000, &m_preDisWifiConnInfoMillis, false)) {
         // 这个if为了减少频繁的打印
         Serial.println(F("\nWiFi connected"));
         Serial.print(F("IP address: "));
@@ -113,10 +101,8 @@ boolean Network::end_conn_wifi(void)
     return CONN_SUCC;
 }
 
-boolean Network::close_wifi(void)
-{
-    if(!WiFi.disconnect())
-    {
+boolean Network::close_wifi(void) {
+    if (!WiFi.disconnect()) {
         return false;
     }
     WiFi.enableSTA(false);
@@ -130,15 +116,13 @@ boolean Network::close_wifi(void)
     return true;
 }
 
-boolean Network::open_ap(const char *ap_ssid, const char *ap_password)
-{
+boolean Network::open_ap(const char *ap_ssid, const char *ap_password) {
     WiFi.enableAP(true); //配置为AP模式
     // 修改主机名
     WiFi.setHostname(HOST_NAME);
     // WiFi.begin();
     boolean result = WiFi.softAP(ap_ssid, ap_password); //开启WIFI热点
-    if (result)
-    {
+    if (result) {
         WiFi.softAPConfig(local_ip, gateway, subnet);
         IPAddress myIP = WiFi.softAPIP();
 
@@ -150,9 +134,7 @@ boolean Network::open_ap(const char *ap_ssid, const char *ap_password)
         ap_timeout = 300; // 开始计时
         // xTimer_ap = xTimerCreate("ap time out", 1000 / portTICK_PERIOD_MS, pdTRUE, (void *)0, restCallback);
         // xTimerStart(xTimer_ap, 0); //开启定时器
-    }
-    else
-    {
+    } else {
         //开启热点失败
         Serial.println(F("WiFiAP Failed"));
         return false;
@@ -160,21 +142,18 @@ boolean Network::open_ap(const char *ap_ssid, const char *ap_password)
         ESP.restart(); //复位esp32
     }
     // 设置域名
-    if (MDNS.begin(HOST_NAME))
-    {
+    if (MDNS.begin(HOST_NAME)) {
         Serial.println(F("MDNS responder started"));
     }
     return true;
 }
 
-void restCallback(TimerHandle_t xTimer)
-{
+void restCallback(TimerHandle_t xTimer) {
     //长时间不访问WIFI Config 将复位设备
     --ap_timeout;
     Serial.print(F("AP timeout: "));
     Serial.println(ap_timeout);
-    if (ap_timeout < 1)
-    {
+    if (ap_timeout < 1) {
         // todo
         WiFi.softAPdisconnect(true);
         // ESP.restart();
